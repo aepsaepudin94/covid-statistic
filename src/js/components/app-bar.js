@@ -29,13 +29,13 @@ class AppBar extends HTMLElement {
     this.shadowDOM.innerHTML = `
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
       <style>
-        @media screen and (min-width: 361px) {
+        @media screen and (min-width: 601px) {
           #covid__statictic-reset-search {
             margin-right: 5px;
           }
         }
 
-        @media screen and (max-width: 360px) {
+        @media screen and (max-width: 600px) {
           #covid__statictic-submit-search,
           .form-navbar {
             width: 100%;

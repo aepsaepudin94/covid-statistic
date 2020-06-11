@@ -306,7 +306,7 @@ class CustomTable extends HTMLElement {
           cursor: ns-resize;
         }
 
-        @media screen and (min-width: 361px) {
+        @media screen and (min-width: 601px) {
           .label-covid__statictic-sort-select {
             margin-left: 5px;
           }
@@ -317,7 +317,7 @@ class CustomTable extends HTMLElement {
           }
         }
 
-        @media screen and (max-width: 360px) {
+        @media screen and (max-width: 600px) {
           .move-field {
             margin-left: 5px;
           }
