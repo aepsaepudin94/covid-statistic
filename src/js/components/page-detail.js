@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import Highcharts from 'highcharts';
 import utils from '../utils.js';
-import dummyData from '../data/data-daily.js';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 
@@ -42,7 +41,6 @@ class PageDetail extends HTMLElement {
 
     $(divChart).append('<p class="info-loading">Wait a moment still loading data...</p>');
     return utils.loadData(endPoint).then((dt) => {
-      // dt = dummyData;
 
       $(divChart).find('.info-loading').remove();
 

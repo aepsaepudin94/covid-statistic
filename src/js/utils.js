@@ -1,7 +1,6 @@
 import { isEmpty } from 'lodash';
 import './components/app-bar.js';
 import './components/custom-table.js';
-import dummyData from './data/data.js';
 import $ from 'jquery';
 
 const utils = {
@@ -13,7 +12,6 @@ const utils = {
 
     $('.info-loading').show();
     utils.loadData('summary').then((dt) => {
-      // dt = dummyData;
       $('.info-loading').hide();
       utils._tableElement.data = dt.Countries;
     });
@@ -22,11 +20,6 @@ const utils = {
   loadData: (method) => {
     return fetch(`https://api.covid19api.com/${method}`)
       .then(response => response.json());
-    // return new Promise(resolve => {
-    //   setTimeout(() => {
-    //     resolve([]);
-    //   }, 2e3);
-    // });
   },
   addListener: () => {
     utils._navElement.addEventSubmit = (e) => {
