@@ -2,6 +2,8 @@
 
 A simple page for view statistic data **Covid-19** all of Countries.
 
+Sample live site [here](https://covid-statistic-data.herokuapp.com/)
+
 ## Project Structure
 
 This project run and bundling by [Webpack](https://webpack.js.org/) and run an express server to deploy on [Heroku](https://id.heroku.com/).
