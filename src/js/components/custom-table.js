@@ -367,8 +367,9 @@ class CustomTable extends HTMLElement {
         </div>
       </div>
       <div style="margin-top: 12px;" class="row">
-        <div class="col-sm-12 table-responsive">
-          <table id="covid__statictic-main-table" class="table table-striped table-hover table-dark">`;
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table id="covid__statictic-main-table" class="table table-striped table-hover table-dark">`;
 
     // setup fields
     table += `<thead><tr>`;
@@ -407,7 +408,8 @@ class CustomTable extends HTMLElement {
     });
 
     table += `
-          </table>
+            </table>
+          </div>
         </div>
       </div>`;
     content += table;
