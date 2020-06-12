@@ -5,6 +5,7 @@ import Sortable from 'sortablejs';
 import localforage from 'localforage';
 import Swal from 'sweetalert2';
 import './page-detail.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class CustomTable extends HTMLElement {
 
@@ -88,7 +89,6 @@ class CustomTable extends HTMLElement {
         position: 10
       },
     ];
-    this.shadowDOM = this.attachShadow({ mode: 'open' });
   }
 
   set data(data) {
@@ -151,7 +151,7 @@ class CustomTable extends HTMLElement {
   saveNewSettingFields() {
     return new Promise((resolve, reject) => {
       let configs = [];
-      const fieldSettings = this.shadowDOM.querySelectorAll('#table__setting-fields li');
+      const fieldSettings = this.querySelectorAll('#table__setting-fields li');
 
       $(fieldSettings).each(function (i, e) {
         const config = $(this).data();
@@ -172,7 +172,7 @@ class CustomTable extends HTMLElement {
 
   addEventClickDetail() {
     this._data.forEach(dt => {
-      const elemTarget = this.shadowDOM.querySelector(`#covid__statictic-table-detail--${dt.CountryCode}`);
+      const elemTarget = this.querySelector(`#covid__statictic-table-detail--${dt.CountryCode}`);
       if (elemTarget) {
         const onClickDetail = (detail) => {
           return () => {
@@ -194,13 +194,13 @@ class CustomTable extends HTMLElement {
   }
 
   async updateTable(filterValue = null) {
-    const sortBy = this.shadowDOM.querySelector('#covid__statictic-sort-select').value || 'Country';
-    const sortDirection = this.shadowDOM.querySelector('#covid__statictic-sort-direction').value || 'asc';
+    const sortBy = this.querySelector('#covid__statictic-sort-select').value || 'Country';
+    const sortDirection = this.querySelector('#covid__statictic-sort-direction').value || 'asc';
 
     let fields = await this.getCurrentFields();
         fields = orderBy(fields, ['position'], ['asc']);
-    const mainTable = this.shadowDOM.querySelector('#covid__statictic-main-table');
-    const selectSort = this.shadowDOM.querySelectorAll('#covid__statictic-sort-select');
+    const mainTable = this.querySelector('#covid__statictic-main-table');
+    const selectSort = this.querySelectorAll('#covid__statictic-sort-select');
 
     $(mainTable).find('thead tr').empty();
     fields.forEach(field => {
@@ -269,7 +269,7 @@ class CustomTable extends HTMLElement {
 
   createElemSort(fields) {
     const self = this;
-    const sortSelecElem = this.shadowDOM.querySelector('#covid__statictic-sort-select');
+    const sortSelecElem = this.querySelector('#covid__statictic-sort-select');
     $(sortSelecElem).empty();
     fields.forEach(field => {
       const { show: isShow, sort: isUseSort, title, key } = field;
@@ -294,7 +294,6 @@ class CustomTable extends HTMLElement {
 
   async render() {
     let content = `
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
       <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
       <style>
         #table__setting-fields {
@@ -330,10 +329,6 @@ class CustomTable extends HTMLElement {
           }
         }
       </style>
-
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     `;
 
     let fields = await this.getCurrentFields();
@@ -417,13 +412,13 @@ class CustomTable extends HTMLElement {
       </div>`;
     content += table;
 
-    this.shadowDOM.innerHTML = content;
+    this.innerHTML = content;
 
     // setup select sort
     this.createElemSort(fields);
 
     // setup fields setting
-    const listFieldSetting = this.shadowDOM.querySelector('#table__setting-fields');
+    const listFieldSetting = this.querySelector('#table__setting-fields');
     fields.forEach(field => {
       const { key, title, show } = field;
       const isShow = show ? 'checked' : '';
@@ -446,7 +441,7 @@ class CustomTable extends HTMLElement {
     });
 
     // setup sortable
-    const tableSetting = this.shadowDOM.querySelector('#table__setting-fields');
+    const tableSetting = this.querySelector('#table__setting-fields');
     Sortable.create(tableSetting, {
       handle: '.move-field',
       animation: 150,
@@ -457,7 +452,7 @@ class CustomTable extends HTMLElement {
     });
 
     // add event listener sort direction
-    const sortDirectionElem = this.shadowDOM.querySelector('#covid__statictic-sort-direction');
+    const sortDirectionElem = this.querySelector('#covid__statictic-sort-direction');
     const self = this;
     $(sortDirectionElem).change(function () {
       setTimeout(() => {
@@ -481,8 +476,8 @@ class CustomTable extends HTMLElement {
     }, 8e2));
 
     // add event listener button setting
-    const btnCollapse = this.shadowDOM.querySelector('#table__setting-collapse');
-    const collapseContainer = this.shadowDOM.querySelector('#table__setting-container');
+    const btnCollapse = this.querySelector('#table__setting-collapse');
+    const collapseContainer = this.querySelector('#table__setting-container');
     btnCollapse.addEventListener('click', () => {
       const styleContainer = window.getComputedStyle(collapseContainer);
       const isVisible = styleContainer.display !== 'none';
@@ -497,7 +492,7 @@ class CustomTable extends HTMLElement {
     });
 
     // add event listener button reset setting
-    const btnResetSetting = this.shadowDOM.querySelector('#table__reset-setting');
+    const btnResetSetting = this.querySelector('#table__reset-setting');
     btnResetSetting.addEventListener('click', () => {
       this.resetTableSetting();
     });

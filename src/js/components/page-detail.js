@@ -6,18 +6,13 @@ import { isEmpty } from 'lodash';
 
 class PageDetail extends HTMLElement {
 
-  constructor() {
-    super();
-    this.shadowDOM = this.attachShadow({ mode: "open" });
-  }
-
   set data(data) {
     this._data = data;
     this.render();
   }
 
   showDetail() {
-    const elem = this.shadowDOM.querySelector(`#detail-${this._data.CountryCode}`);
+    const elem = this.querySelector(`#detail-${this._data.CountryCode}`);
     const container = document.querySelector('.container');
     $(container).append(this);
     $(elem).slideDown(() => {
@@ -33,11 +28,11 @@ class PageDetail extends HTMLElement {
     const endDate = moment().subtract('days', 1).format('YYYY-MM-DD');
     const { Slug } = this._data;
     const endPoint = `country/${Slug}?from=${startDate} 00:00:00&to=${endDate} 00:00:00`;
-    const dateFromElem = this.shadowDOM.querySelector('.date-from');
-    const dateToElem = this.shadowDOM.querySelector('.date-to');
+    const dateFromElem = this.querySelector('.date-from');
+    const dateToElem = this.querySelector('.date-to');
     dateFromElem.innerHTML = moment(startDate).format('DD MMM YYYY');
     dateToElem.innerHTML = moment(endDate).format('DD MMM YYYY');
-    const divChart = this.shadowDOM.querySelector('#detail__chart-container');
+    const divChart = this.querySelector('#detail__chart-container');
 
     $(divChart).append('<p class="info-loading">Wait a moment still loading data...</p>');
     return utils.loadData(endPoint).then((dt) => {
@@ -105,7 +100,7 @@ class PageDetail extends HTMLElement {
   backToTable() {
     return () => {
       const pageDetail = document.querySelector('page-detail');
-      const elem = this.shadowDOM.querySelector(`#detail-${this._data.CountryCode}`);
+      const elem = this.querySelector(`#detail-${this._data.CountryCode}`);
       const tableElem = document.querySelector('custom-table');
 
       $(elem).slideUp(() => {
@@ -116,8 +111,7 @@ class PageDetail extends HTMLElement {
   }
 
   render() {
-    this.shadowDOM.innerHTML = `
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    this.innerHTML = `
       <style>
         .date-from, .date-to {
           font-weight: bold;
@@ -151,13 +145,9 @@ class PageDetail extends HTMLElement {
           </div>
         </div>
       </div>
-
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     `;
 
-    const btnBack = this.shadowDOM.querySelector('#detail__page-back');
+    const btnBack = this.querySelector('#detail__page-back');
     btnBack.addEventListener('click', this.backToTable());
   }
 }
