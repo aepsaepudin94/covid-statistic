@@ -4,7 +4,8 @@
   "description": "",
   "main": "/src/index.js",
   "scripts": {
-    "heroku-prebuild": "webpack --config webpack.prod.js",
+    "start": "node server.js",
+    "heroku-postbuild": "webpack --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js --open",
     "build": "webpack --config webpack.prod.js"
   },
@@ -29,6 +30,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
+    "express": "^4.17.1",
     "highcharts": "^8.1.1",
     "jquery": "^3.5.1",
     "localforage": "^1.7.4",
