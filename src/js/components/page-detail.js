@@ -89,7 +89,7 @@ class PageDetail extends HTMLElement {
             dataLabels: {
               enabled: true
             },
-            enableMouseTracking: false
+            enableMouseTracking: true
           }
         },
         series: Object.values(series)
