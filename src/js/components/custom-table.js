@@ -234,6 +234,18 @@ class CustomTable extends HTMLElement {
         const keyword = lowerCase(filterValue);
         return countryName.indexOf(keyword) != -1;
       });
+
+      if (isEmpty(data)) {
+        Swal.fire(
+          'Not Found',
+          `Ouh we can't found data <strong>${filterValue}</strong> :(`,
+          'warning'
+        ).then(() => {
+          const searchInput = document.querySelector('#covid__statictic-search');
+          $(searchInput).val('').trigger('search');
+        });
+        return;
+      }
     }
 
     data.forEach(dt => {
