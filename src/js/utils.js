@@ -39,7 +39,8 @@ const utils = {
 
     utils._navElement.addEventResetSearch = (e) => {
       e.preventDefault();
-      utils._tableElement.updateTable();
+      const findKeyword = utils._navElement.valueSearch || null;
+      utils._tableElement.updateTable(findKeyword);
     };
   }
 };

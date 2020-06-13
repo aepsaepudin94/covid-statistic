@@ -224,7 +224,6 @@ class CustomTable extends HTMLElement {
       }
     });
 
-    $(mainTable).find('tbody').empty();
     let number = 1;
     let data = orderBy(this._data, [sortBy], [sortDirection]);
 
@@ -242,12 +241,13 @@ class CustomTable extends HTMLElement {
           'warning'
         ).then(() => {
           const searchInput = document.querySelector('#covid__statictic-search');
-          $(searchInput).val('').trigger('search');
+          $(searchInput).val('');
         });
         return;
       }
     }
 
+    $(mainTable).find('tbody').empty();
     data.forEach(dt => {
       const { CountryCode } = dt;
       const row = document.createElement('tr');

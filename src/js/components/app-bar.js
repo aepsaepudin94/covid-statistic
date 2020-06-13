@@ -51,7 +51,7 @@ class AppBar extends HTMLElement {
         <p class="p-navbar"><a class="navbar-brand">Covid Statistic</a></p>
         <form class="form-inline form-navbar">
           <input id="covid__statictic-search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button id="covid__statictic-submit-search" class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+          <button id="covid__statictic-submit-search" class="btn btn-outline-light my-2 my-sm-0" type="button">Search</button>
         </form>
       </nav>
     `;
@@ -59,7 +59,9 @@ class AppBar extends HTMLElement {
     this.querySelector('#covid__statictic-submit-search').addEventListener('click', this._onSubmitSearch);
 
     const searchInput = this.querySelector('#covid__statictic-search');
+
     $(searchInput).on('search', this._onResetSearch);
+    $('.form-navbar').submit(e => e.preventDefault() );
   }
 }
 
