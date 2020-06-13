@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SimpleProgressPlugin = require('webpack-simple-progress-plugin');
 const path = require("path");
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -39,5 +40,10 @@ module.exports = {
       filename: "index.html"
     }),
     new SimpleProgressPlugin(),
+    new FaviconsWebpackPlugin({
+      logo: './src/assets/img/favicon.png',
+      outputPath: './assets/favicons',
+      prefix: './assets/favicons/'
+    })
    ]
 }
