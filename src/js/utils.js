@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 import './components/app-bar.js';
 import './components/custom-table.js';
 import $ from 'jquery';
+import Swal from 'sweetalert2';
 
 const utils = {
   _tableElement: null,
