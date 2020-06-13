@@ -19,7 +19,14 @@ const utils = {
 	},
   loadData: (method) => {
     return fetch(`https://api.covid19api.com/${method}`)
-      .then(response => response.json());
+      .then(response => response.json()).catch(err => {
+        Swal.fire(
+          'Error',
+          `Ouh something error on our system :( <br>
+          <strong> ${err} </strong>`,
+          'error'
+        );
+      });
   },
   addListener: () => {
     utils._navElement.addEventSubmit = (e) => {
