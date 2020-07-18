@@ -16,10 +16,29 @@ const utils = {
       $('.info-loading').hide();
       utils._tableElement.data = dt.Countries;
     });
+    utils.registerSw();
     utils.addListener();
 	},
-  loadData: (method) => {
-    return fetch(`https://api.covid19api.com/${method}`)
+  loadData: (method, useFromCache = true) => {
+    const baseUrl = 'https://api.covid19api.com';
+    if ('caches' in window && useFromCache) {
+      return caches.match(`${baseUrl}/${method}`).then(response => {
+        if (response) return response.json();
+        return utils.loadData(method, false);
+      });
+    }
+
+    if (!navigator.onLine) {
+      Swal.fire(
+        'Offline',
+        `You are offline now :( <br>
+          <strong> Please check your connection </strong>`,
+        'warning'
+      );
+      return;
+    }
+
+    return fetch(`${baseUrl}/${method}`)
       .then(response => response.json()).catch(err => {
         Swal.fire(
           'Error',
@@ -28,6 +47,22 @@ const utils = {
           'error'
         );
       });
+  },
+  registerSw: () => {
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker
+          .register("../service-worker.js")
+          .then(function () {
+            console.log("Pendaftaran ServiceWorker berhasil");
+          })
+          .catch(function () {
+            console.log("Pendaftaran ServiceWorker gagal");
+          });
+      });
+    } else {
+      console.log("ServiceWorker belum didukung browser ini.");
+    }
   },
   addListener: () => {
     utils._navElement.addEventSubmit = (e) => {
