@@ -19,22 +19,27 @@ const utils = {
     utils.registerSw();
     utils.addListener();
 	},
-  loadData: (method, useFromCache = true) => {
+  loadData: (method) => {
     const baseUrl = 'https://api.covid19api.com';
-    if ('caches' in window && useFromCache) {
-      return caches.match(`${baseUrl}/${method}`).then(response => {
-        if (response) return response.json();
-        return utils.loadData(method, false);
-      });
-    }
-
-    if (!navigator.onLine) {
+    const showAlertOffline = () => {
       Swal.fire(
         'Offline',
         `You are offline now :( <br>
           <strong> Please check your connection </strong>`,
         'warning'
       );
+    };
+    const isOffline = !navigator.onLine;
+
+    if (isOffline) {
+      if ('caches' in window) {
+        return caches.match(`${baseUrl}/${method}`).then(response => {
+          if (response) return response.json();
+          showAlertOffline();
+        });
+      }
+
+      showAlertOffline();
       return;
     }
 
